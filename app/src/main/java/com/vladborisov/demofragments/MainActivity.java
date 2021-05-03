@@ -11,7 +11,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private static final int COUNT_ITEM_GEN = 20;
-    private static final String ITEM_TEXT = "Елемент списка номер";
+    private static final String ITEM_TEXT = "Элемент списка номер";
     private List<Item> items;
 
     @Override
