@@ -27,7 +27,7 @@ public class ListFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        Log.d(TAG, "onCreate " + this.toString());
+        Log.d(TAG, "onCreate ");
         super.onCreate(savedInstanceState);
     }
 
