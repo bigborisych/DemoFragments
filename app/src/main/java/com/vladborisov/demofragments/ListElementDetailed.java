@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment;
 public class ListElementDetailed extends Fragment {
     public static final String TAG = "ListElementDetailed";
     private static final String EXTRA_TEXT = "EXTRA_TEXT";
-    private String text;
 
     public static ListElementDetailed newInstance(String text){
         ListElementDetailed fragment = new ListElementDetailed();
@@ -33,7 +32,7 @@ public class ListElementDetailed extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if(getArguments() != null){
-            text = getArguments().getString(EXTRA_TEXT, "...");
+            String text = getArguments().getString(EXTRA_TEXT, "...");
             ((TextView) view.findViewById(R.id.fragment_show_info_item_text)).setText(text);
         }
     }
