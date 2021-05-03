@@ -30,18 +30,21 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         holder.bind(item);
         holder.itemView.setTag(item);
     }
+
     @Override
     public int getItemCount() {
         return items.size();
     }
-    static final class ItemViewHolder extends RecyclerView.ViewHolder{
+
+    static final class ItemViewHolder extends RecyclerView.ViewHolder {
         private final TextView textTextView;
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
             this.textTextView = itemView.findViewById(R.id.list_item_text);
         }
-        private void bind(@NonNull Item item){
+
+        private void bind(@NonNull Item item) {
             String text = item.name + " " + item.count;
             textTextView.setText(text);
         }
