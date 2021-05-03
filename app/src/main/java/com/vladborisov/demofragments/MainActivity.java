@@ -1,6 +1,7 @@
 package com.vladborisov.demofragments;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Item
     public void onItemClickListener(Item item) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.activity_main_fragment_container, new ListElementDetailed(), ListElementDetailed.TAG)
+                .replace(R.id.activity_main_fragment_container, ListElementDetailed.newInstance(item.name + " " + item.count), ListElementDetailed.TAG)
                 .addToBackStack(null)
                 .commit();
     }
