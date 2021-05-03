@@ -18,6 +18,7 @@ import java.util.List;
 public class ListFragment extends Fragment {
     public static final String TAG = "ListFragment";
     private List<Item> items;
+    private ItemClickListener listener;
 
     @NonNull
     @Override
@@ -50,6 +51,7 @@ public class ListFragment extends Fragment {
         Log.d(TAG, "onDestroy");
         super.onDestroy();
     }
+
     private List<Item> generateItemList() {
         List<Item> items = new ArrayList<>();
         for (int i = 1; i <= MainActivity.COUNT_ITEM_GEN; i++) {
@@ -60,9 +62,23 @@ public class ListFragment extends Fragment {
 
     private void setupRecyclerView(View view) {
         RecyclerView recyclerView = view.findViewById(R.id.list_item_recycler_view);
-        ItemAdapter itemAdapter = new ItemAdapter(items);
+        ItemAdapter itemAdapter = new ItemAdapter(items, this::onItemClick);
         recyclerView.setAdapter(itemAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
+    }
+
+    public void setListener(ItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public interface ItemClickListener {
+        void onItemClickListener(Item item);
+    }
+
+    private void onItemClick(Item item) {
+        if (listener != null) {
+            listener.onItemClickListener(item);
+        }
     }
 }

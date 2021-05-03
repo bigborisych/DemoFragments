@@ -12,15 +12,18 @@ import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
     private final List<Item> items;
+    private final Listener onItemClickListener;
 
-    public ItemAdapter(List<Item> items) {
+    public ItemAdapter(List<Item> items, Listener onItemClickListener) {
         this.items = items;
+        this.onItemClickListener = onItemClickListener;
     }
 
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+        view.setOnClickListener(v -> onItemClickListener.onItemClick((Item) v.getTag()));
         return new ItemViewHolder(view);
     }
 
@@ -48,5 +51,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             String text = item.name + " " + item.count;
             textTextView.setText(text);
         }
+    }
+
+    interface Listener {
+        void onItemClick(Item item);
     }
 }
