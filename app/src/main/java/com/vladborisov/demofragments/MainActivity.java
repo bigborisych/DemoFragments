@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int COUNT_ITEM_GEN = 10;
+    private static final int COUNT_ITEM_GEN = 20;
     private static final String ITEM_TEXT = "Елемент списка номер";
     private List<Item> items;
 
