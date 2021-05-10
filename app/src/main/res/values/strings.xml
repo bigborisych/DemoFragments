@@ -2,4 +2,9 @@
     <string name="app_name">DemoFragments</string>
     <string name="fragment_two">FRAGMENT TWO</string>
     <string name="fragment_three">FRAGMENT THREE</string>
+    <string name="fragment_one">FRAGMENT ONE</string>
+    <string name="fragment_four">FRAGMENT FOUR</string>
+    <string name="tab_1">FRAGMENT ONE</string>
+    <string name="tab_2">FRAGMENT TWO</string>
+    <string name="tab_3">FRAGMENT THREE</string>
 </resources>

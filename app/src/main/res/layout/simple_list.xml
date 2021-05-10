@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:ignore="HardcodedText" >
+
+    <TextView
+        android:id="@+id/tV1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="tV1"
+        />
+
+    <TextView
+        android:id="@+id/tV2"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="tV2" />
+
+    <TextView
+        android:id="@+id/tV3"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="tV3" />
+
+    <TextView
+        android:id="@+id/tV4"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="tV4" />
+
+    <TextView
+        android:id="@+id/tV5"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="tV5" />
+
+    <TextView
+        android:id="@+id/tV6"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="tV6" />
+
+    <TextView
+        android:id="@+id/tV7"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="tV7" />
+</LinearLayout>

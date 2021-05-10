@@ -36,4 +36,10 @@ public class ListElementDetailed extends Fragment {
             ((TextView) view.findViewById(R.id.fragment_show_info_item_text)).setText(text);
         }
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
 }

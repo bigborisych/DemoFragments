@@ -1,10 +1,14 @@
 package com.vladborisov.demofragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +22,12 @@ import java.util.List;
 public class ListFragment extends Fragment {
     public static final String TAG = "ListFragment";
     private List<Item> items;
-    private ItemClickListener listener;
+    private OnListSelectedListener listSelectedListener;
+    private static Item item;
+
+    public interface OnListSelectedListener {
+        void onListSelected(Item item);
+    }
 
     @NonNull
     @Override
@@ -27,12 +36,6 @@ public class ListFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_list_of_elements, container, false);
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        items = generateItemList();
-        setupRecyclerView(view);
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,6 +47,19 @@ public class ListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         Log.d(TAG, "onActivityCreated");
         super.onActivityCreated(savedInstanceState);
+        items = generateItemList();
+        setupRecyclerView(getView());
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        if (context instanceof OnListSelectedListener) {
+            listSelectedListener = (OnListSelectedListener) context;
+        } else {
+            System.out.println("Class cast expansion");
+        }
     }
 
     @Override
@@ -62,23 +78,16 @@ public class ListFragment extends Fragment {
 
     private void setupRecyclerView(View view) {
         RecyclerView recyclerView = view.findViewById(R.id.list_item_recycler_view);
-        ItemAdapter itemAdapter = new ItemAdapter(items, this::onItemClick);
-        recyclerView.setAdapter(itemAdapter);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(new ItemAdapter(LayoutInflater.from(getActivity()), items));
     }
 
-    public void setListener(ItemClickListener listener) {
-        this.listener = listener;
-    }
+    /*private void onItemClick(Item item) {
+        ListFragment.item = item;
+    }*/
 
-    public interface ItemClickListener {
-        void onItemClickListener(Item item);
-    }
-
-    private void onItemClick(Item item) {
-        if (listener != null) {
-            listener.onItemClickListener(item);
-        }
+    private void onElementListClick(Item item) {
+        listSelectedListener.onListSelected(item);
     }
 }

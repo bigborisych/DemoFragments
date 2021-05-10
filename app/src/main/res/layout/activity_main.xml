@@ -43,11 +43,53 @@
                 app:layout_collapseMode="pin" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
 
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabMode="fixed">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tab_1"
+                />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tab_2"
+                />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tab_3"
+                />
+
+        </com.google.android.material.tabs.TabLayout>
+    </com.google.android.material.appbar.AppBarLayout>
     <FrameLayout
         android:id="@+id/activity_main_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/activity_main_fragment_container2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/activity_main_fragment_container3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+    </FrameLayout>
+    <!---->
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
