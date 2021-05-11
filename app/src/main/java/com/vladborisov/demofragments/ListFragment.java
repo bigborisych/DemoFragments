@@ -23,31 +23,28 @@ public class ListFragment extends Fragment {
     public static final String TAG = "ListFragment";
     private List<Item> items;
     private OnListSelectedListener listSelectedListener;
-    private static Item item;
 
     public interface OnListSelectedListener {
         void onListSelected(Item item);
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate ");
+        super.onCreate(savedInstanceState);
+
+        items = generateItemList();
+    }
     @NonNull
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView");
         return inflater.inflate(R.layout.fragment_list_of_elements, container, false);
     }
-
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        Log.d(TAG, "onCreate ");
-        super.onCreate(savedInstanceState);
-    }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         Log.d(TAG, "onActivityCreated");
         super.onActivityCreated(savedInstanceState);
-        items = generateItemList();
         setupRecyclerView(getView());
     }
 
@@ -80,14 +77,11 @@ public class ListFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.list_item_recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(new ItemAdapter(LayoutInflater.from(getActivity()), items));
+        recyclerView.setAdapter(new ItemAdapter(LayoutInflater.from(getActivity()), items, this::onItemClick));
+        recyclerView.setHasFixedSize(true);
     }
 
-    /*private void onItemClick(Item item) {
-        ListFragment.item = item;
-    }*/
-
-    private void onElementListClick(Item item) {
+    private void onItemClick(Item item) {
         listSelectedListener.onListSelected(item);
     }
 }

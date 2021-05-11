@@ -1,28 +1,39 @@
 package com.vladborisov.demofragments;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.tabs.TabLayout;
 
-public class MainActivity extends AppCompatActivity implements FragmentThree.OnSimpleListSelectedListener, Toolbar.OnMenuItemClickListener {
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements FragmentFour.OnSimpleListSelectedListener, Toolbar.OnMenuItemClickListener, ListFragment.OnListSelectedListener {
     public static final int COUNT_ITEM_GEN = 20;
     public static final String ITEM_TEXT = "Элемент списка номер";
+
+    private List<Item> items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ViewGroup viewGroup = findViewById(R.id.activity_main_container);
+        View view = LayoutInflater.from(this).inflate(R.layout.toolbar, viewGroup, false);
+        viewGroup.addView(view);
         Toolbar toolbar = findViewById(R.id.activity_main_toolbar);
         setSupportActionBar(toolbar);
         toolbar.setOnMenuItemClickListener(this);
@@ -30,35 +41,20 @@ public class MainActivity extends AppCompatActivity implements FragmentThree.OnS
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                FragmentTwo fragmentTwo = new FragmentTwo();
                 ListFragment listFragment = new ListFragment();
+                FragmentTwo fragmentTwo = new FragmentTwo();
+                FragmentFour fragmentFour = new FragmentFour();
                 FragmentThree fragmentThree = new FragmentThree();
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 if (tab.getPosition() == 0) {
                     fragmentTransaction
-                            .replace(R.id.activity_main_fragment_container2, fragmentTwo, "FRAGMENT TWO")
-                            .remove(fragmentTwo)
-                            .replace(R.id.activity_main_fragment_container3, fragmentThree, "FRAGMENT THREE")
-                            .remove(fragmentThree)
-                            .replace(R.id.activity_main_fragment_container, listFragment, ListFragment.TAG);
-
+                            .replace(R.id.activity_main_fragment_container, fragmentThree, "FRAGMENT FOUR");
                 } else if (tab.getPosition() == 1) {
                     fragmentTransaction
-                            .replace(R.id.activity_main_fragment_container, listFragment, ListFragment.TAG)
-                            .remove(listFragment)
-                            .replace(R.id.activity_main_fragment_container3, fragmentThree, "FRAGMENT THREE")
-                            .remove(fragmentThree)
-                            .replace(R.id.activity_main_fragment_container2, fragmentTwo, "FRAGMENT TWO");
-
-
+                            .replace(R.id.activity_main_fragment_container, fragmentTwo, "FRAGMENT TWO");
                 } else if (tab.getPosition() == 2) {
                     fragmentTransaction
-                            .replace(R.id.activity_main_fragment_container, listFragment, ListFragment.TAG)
-                            .remove(listFragment)
-                            .replace(R.id.activity_main_fragment_container2, fragmentTwo, "FRAGMENT TWO")
-                            .remove(fragmentTwo)
-                            .replace(R.id.activity_main_fragment_container3, fragmentThree, "FRAGMENT THREE");
-
+                            .replace(R.id.activity_main_fragment_container, listFragment, "FRAGMENT TWO");
                 }
                 fragmentTransaction.commit();
 
@@ -82,6 +78,14 @@ public class MainActivity extends AppCompatActivity implements FragmentThree.OnS
         return true;
     }
 
+    private List<Item> generateItemList() {
+        List<Item> items = new ArrayList<>();
+        for (int i = 1; i <= MainActivity.COUNT_ITEM_GEN; i++) {
+            items.add(new Item(MainActivity.ITEM_TEXT, i));
+        }
+        return items;
+    }
+
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         int id = item.getItemId();
@@ -93,9 +97,9 @@ public class MainActivity extends AppCompatActivity implements FragmentThree.OnS
                     .addToBackStack(null)
                     .commit();
         } else if (id == R.id.fragment_three) {
-            FragmentThree fragmentThree = new FragmentThree();
+            FragmentFour fragmentFour = new FragmentFour();
             fragmentManager
-                    .replace(R.id.activity_main_fragment_container, fragmentThree, "FRAGMENT TWO")
+                    .replace(R.id.activity_main_fragment_container, fragmentFour, "FRAGMENT TWO")
                     .addToBackStack(null)
                     .commit();
         } else if (id == R.id.fragment_four) {
@@ -117,8 +121,12 @@ public class MainActivity extends AppCompatActivity implements FragmentThree.OnS
         }
     }
 
-   /* @Override
-    public void onListSelected(Item item) {
+    private void onItemClick(Item item) {
         Toast.makeText(this, item.name, Toast.LENGTH_SHORT).show();
-    }*/
+    }
+
+    @Override
+    public void onListSelected(Item item) {
+        //Toast.makeText(this, item.name, Toast.LENGTH_SHORT).show();
+    }
 }
